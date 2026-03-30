@@ -42,18 +42,17 @@ At a high level, the method has three stages:
 2. Convert the draft into a contracted artifact with preconditions, step-level actions, and success constraints.
 3. Use verifier feedback to localize failures and repair the artifact with minimal patches.
 
-This repository contains the core implementation of that pipeline across:
+This repository contains the core implementation of that pipeline for:
 
 - MiniWoB++
 - VisualWebArena
-- WorkArena
 
 ## Highlights
 
 - ContractSkill converts draft skills into executable contracted artifacts with explicit preconditions, step specifications, postconditions, recovery rules, and termination checks.
 - The method enables deterministic verification, step-level fault localization, and minimal patch-based repair.
-- In the paper, ContractSkill improves self-generated skills on both VisualWebArena and MiniWoB across GLM-4.6V and Qwen3.5-Plus.
-- Repaired artifacts also transfer across models, supporting the view that agent skills are better treated as explicit procedural artifacts that can be verified, repaired, and shared.
+- In the paper, ContractSkill improves self-generated skills on both VisualWebArena and MiniWoB across multiple multimodal models.
+- The method treats web-agent skills as explicit procedural artifacts that can be verified, repaired, and reused.
 
 ## Why ContractSkill?
 
@@ -74,7 +73,7 @@ The released code includes the main pieces of the ContractSkill pipeline:
 - **Contracted representation**: attach preconditions, step-level actions, and success contracts
 - **Verification**: detect schema violations, execution failures, and contract failures
 - **Repair**: update only the failing part of an artifact through constrained patching
-- **Environment integration**: run the same high-level method across multiple web-agent benchmarks
+- **Environment integration**: run the same high-level method across supported web-agent benchmarks
 
 ## Paper Summary
 
@@ -113,13 +112,12 @@ These materials are omitted in this release because follow-up analysis is still 
 
 ```text
 .
-├── env/                         # ContractSkill logic and benchmark-specific environments
-├── docs/                        # Setup notes for MiniWoB++, VWA, and WorkArena
-├── scripts/                     # Minimal setup and environment-check utilities
-├── run_miniwob_experiment.py    # MiniWoB++ runner
-├── run_vwa_experiment.py        # VisualWebArena runner
-├── run_workarena_experiment.py  # WorkArena runner
-└── glm_client.py                # Model client wrapper
+├── env/                       # ContractSkill logic and benchmark-specific environments
+├── docs/                      # Setup notes for MiniWoB++ and VWA
+├── scripts/                   # Minimal setup and environment-check utilities
+├── run_miniwob_experiment.py  # MiniWoB++ runner
+├── run_vwa_experiment.py      # VisualWebArena runner
+└── glm_client.py              # Model client wrapper
 ```
 
 ## Getting Started
@@ -129,7 +127,6 @@ The fastest entry point is to read the benchmark setup guides:
 - `docs/MINIWOB_SETUP.md`
 - `docs/VISUALWEBARENA_SETUP.md`
 - `docs/VISUALWEBARENA_AMI_AWS.md`
-- `docs/WORKARENA_SETUP.md`
 
 Example environment templates are provided as:
 
@@ -137,7 +134,6 @@ Example environment templates are provided as:
 - `.env.miniwob.example`
 - `.env.vwa.example`
 - `.env.vwa.ami.example`
-- `.env.workarena.example`
 
 ## Release Note
 
