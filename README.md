@@ -5,6 +5,11 @@
 </p>
 
 <p align="center">
+  Skills that can verify themselves, repair themselves, and be reused across web tasks.<br/>
+  让网页智能体的 skill 具备可验证、可修复、可复用的能力。
+</p>
+
+<p align="center">
   <i>Zijian Lu, Yiping Zuo, Yupeng Nie, Xin He, Weibei Fan, Chen Dai</i>
 </p>
 
