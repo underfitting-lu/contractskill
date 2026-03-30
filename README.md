@@ -151,11 +151,3 @@ If this repository or the paper is useful in your research, please cite:
   doi     = {10.48550/arXiv.2603.20340}
 }
 ```
-
-## Note | 说明
-
-**English.**  
-This repository is organized as a clean supplementary code release for the paper, rather than a full archive of all experimental runs.
-
-**中文。**  
-本仓库定位为论文的补充代码仓库，而不是完整实验过程与所有运行结果的归档库。
