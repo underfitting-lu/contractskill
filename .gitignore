@@ -2,11 +2,9 @@
 .venv_vwa/
 .venv_vwa*/
 .venv_miniwob/
-.venv_workarena/
 .env.vwa
 .env.api
 .env.miniwob
-.env.workarena
 __pycache__/
 env/__pycache__/
 scripts/__pycache__/
