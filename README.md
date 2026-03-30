@@ -1,48 +1,137 @@
-# ContractSkill
+<h1 align="center">ContractSkill</h1>
 
-Minimal code release for the ContractSkill pipeline.
+<p align="center">
+  <b>Repairable Contract-Based Skills for Multimodal Web Agents</b>
+</p>
 
-This repository contains the core implementation for:
+<p align="center">
+  <i>Zijian Lu, Yiping Zuo, Yupeng Nie, Xin He, Weibei Fan, Chen Dai</i>
+</p>
 
-- task-level artifact generation
-- verifier-guided repair
-- environment integration for MiniWoB, VisualWebArena, and WorkArena
+<p align="center">
+  <a href="https://arxiv.org/abs/2603.20340"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2603.20340-b31b1b.svg"></a>
+  <a href="https://doi.org/10.48550/arXiv.2603.20340"><img alt="DOI" src="https://img.shields.io/badge/DOI-10.48550%2FarXiv.2603.20340-blue.svg"></a>
+</p>
 
-This release is intentionally code-only. It does **not** include:
+<p align="center">
+  Minimal code release accompanying our paper:
+  <a href="https://arxiv.org/abs/2603.20340">arXiv:2603.20340</a>
+</p>
+
+<p align="center">
+  <a href="https://arxiv.org/abs/2603.20340">Paper</a>
+  ·
+  <a href="#overview">Overview</a>
+  ·
+  <a href="#repository-scope">Repository Scope</a>
+  ·
+  <a href="#getting-started">Getting Started</a>
+  ·
+  <a href="#citation">Citation</a>
+</p>
+
+---
+
+## Overview
+
+Modern multimodal web agents are often strong enough to draft task-level plans, but those plans are brittle when executed in real interfaces. ContractSkill turns free-form web skills into **contracted artifacts** with explicit assumptions, executable steps, and verifiable completion conditions. When execution fails, ContractSkill applies **verifier-guided local repair** instead of rewriting the entire plan from scratch.
+
+At a high level, the method has three stages:
+
+1. Draft a task-level skill from the current web task.
+2. Convert the draft into a contracted artifact with preconditions, step-level actions, and success constraints.
+3. Use verifier feedback to localize failures and repair the artifact with minimal patches.
+
+This repository contains the core implementation of that pipeline across:
+
+- MiniWoB++
+- VisualWebArena
+- WorkArena
+
+## Highlights
+
+- ContractSkill converts draft skills into executable contracted artifacts with explicit preconditions, step specifications, postconditions, recovery rules, and termination checks.
+- The method enables deterministic verification, step-level fault localization, and minimal patch-based repair.
+- In the paper, ContractSkill improves self-generated skills on both VisualWebArena and MiniWoB across GLM-4.6V and Qwen3.5-Plus.
+- Repaired artifacts also transfer across models, supporting the view that agent skills are better treated as explicit procedural artifacts that can be verified, repaired, and shared.
+
+## Why ContractSkill?
+
+ContractSkill is designed around a simple observation: web-agent failures are often not pure reasoning failures. They are frequently caused by:
+
+- missing or stale page assumptions
+- partially correct but incomplete task plans
+- brittle action targets
+- local execution failures that do not require full replanning
+
+By making the artifact structure explicit, ContractSkill makes these failures easier to **localize, diagnose, and patch**.
+
+## Method Components
+
+The released code includes the main pieces of the ContractSkill pipeline:
+
+- **Artifact generation**: produce task-level skills from multimodal observations
+- **Contracted representation**: attach preconditions, step-level actions, and success contracts
+- **Verification**: detect schema violations, execution failures, and contract failures
+- **Repair**: update only the failing part of an artifact through constrained patching
+- **Environment integration**: run the same high-level method across multiple web-agent benchmarks
+
+## Paper Summary
+
+From the paper abstract:
+
+> ContractSkill converts a draft skill into a contracted executable artifact with explicit preconditions, step specifications, postconditions, recovery rules, and termination checks. This representation enables deterministic verification, step-level fault localization, and minimal patch-based repair, turning skill refinement into localized editing rather than full regeneration.
+
+If you are interested in multimodal GUI agents, reusable skills, or verifier-guided agent repair, the paper is the best place to start:
+
+- Paper page: https://arxiv.org/abs/2603.20340
+- PDF: https://arxiv.org/pdf/2603.20340
+- DOI: https://doi.org/10.48550/arXiv.2603.20340
+
+## Repository Scope
+
+This is a **minimal code release** focused on method transparency and implementation clarity.
+
+Included in this repository:
+
+- core ContractSkill logic
+- benchmark environment wrappers
+- main experiment entry points
+- setup notes for supported environments
+- minimal environment-check and setup scripts
+
+Not included in this repository:
 
 - full experimental outputs
-- task-level result artifacts
-- internal analysis scripts
-- benchmark split files used in our paper
+- benchmark task splits used in our paper
+- raw traces and task-level result bundles
+- internal analysis scripts and development utilities
 
-Those materials are omitted from this release because follow-up analysis is still ongoing.
+These materials are omitted in this release because follow-up analysis is still ongoing.
 
-## Included Contents
+## Repository Layout
 
-- `env/`: core environment wrappers and ContractSkill logic
-- `run_miniwob_experiment.py`: MiniWoB experiment entry point
-- `run_vwa_experiment.py`: VisualWebArena experiment entry point
-- `run_workarena_experiment.py`: WorkArena experiment entry point
-- `scripts/`: minimal environment setup and environment checks
-- `docs/`: setup notes for supported benchmarks
-- `.env.*.example`: example environment configuration files
+```text
+.
+├── env/                         # ContractSkill logic and benchmark-specific environments
+├── docs/                        # Setup notes for MiniWoB++, VWA, and WorkArena
+├── scripts/                     # Minimal setup and environment-check utilities
+├── run_miniwob_experiment.py    # MiniWoB++ runner
+├── run_vwa_experiment.py        # VisualWebArena runner
+├── run_workarena_experiment.py  # WorkArena runner
+└── glm_client.py                # Model client wrapper
+```
 
-## What This Release Is For
+## Getting Started
 
-Use this release to inspect the method implementation and understand how ContractSkill is executed inside supported web environments.
-
-This release is **not** a full reproduction package for the paper's reported tables. In particular, benchmark task definitions and raw result bundles are not included here.
-
-## Setup
-
-See:
+The fastest entry point is to read the benchmark setup guides:
 
 - `docs/MINIWOB_SETUP.md`
 - `docs/VISUALWEBARENA_SETUP.md`
 - `docs/VISUALWEBARENA_AMI_AWS.md`
 - `docs/WORKARENA_SETUP.md`
 
-Environment variable templates are provided as:
+Example environment templates are provided as:
 
 - `.env.api.example`
 - `.env.miniwob.example`
@@ -50,7 +139,24 @@ Environment variable templates are provided as:
 - `.env.vwa.ami.example`
 - `.env.workarena.example`
 
-## Notes
+## Release Note
 
-- Before publishing, review all example environment files and remove any provider-specific details you do not want to expose.
-- If you later decide to release task splits or summary results, they can be added as a separate supplementary package without changing the core code layout.
+This repository is intended as a clean supplementary code release for the paper. It is organized around the **final method implementation**, not around development history, temporary experiment variants, or internal benchmarking artifacts.
+
+## Citation
+
+If this repository or the paper is useful in your work, please cite:
+
+```bibtex
+@article{lu2026contractskill,
+  title   = {ContractSkill: Repairable Contract-Based Skills for Multimodal Web Agents},
+  author  = {Lu, Zijian and Zuo, Yiping and Nie, Yupeng and He, Xin and Fan, Weibei and Dai, Chen},
+  journal = {arXiv preprint arXiv:2603.20340},
+  year    = {2026},
+  doi     = {10.48550/arXiv.2603.20340}
+}
+```
+
+## Paper Link
+
+- arXiv: https://arxiv.org/abs/2603.20340
