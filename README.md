@@ -14,134 +14,139 @@
 </p>
 
 <p align="center">
-  Minimal code release accompanying our paper:
-  <a href="https://arxiv.org/abs/2603.20340">arXiv:2603.20340</a>
-</p>
-
-<p align="center">
   <a href="https://arxiv.org/abs/2603.20340">Paper</a>
   ·
-  <a href="#overview">Overview</a>
+  <a href="https://arxiv.org/pdf/2603.20340">PDF</a>
   ·
-  <a href="#repository-scope">Repository Scope</a>
+  <a href="#overview--简介">Overview</a>
   ·
-  <a href="#getting-started">Getting Started</a>
+  <a href="#repository-scope--仓库范围">Scope</a>
   ·
-  <a href="#citation">Citation</a>
+  <a href="#getting-started--快速开始">Quick Start</a>
+  ·
+  <a href="#citation--引用">Citation</a>
 </p>
 
 ---
 
-## Overview
+## Overview | 简介
 
-Modern multimodal web agents are often strong enough to draft task-level plans, but those plans are brittle when executed in real interfaces. ContractSkill turns free-form web skills into **contracted artifacts** with explicit assumptions, executable steps, and verifiable completion conditions. When execution fails, ContractSkill applies **verifier-guided local repair** instead of rewriting the entire plan from scratch.
+**English.**  
+ContractSkill studies how to make multimodal web-agent skills more reliable. Instead of treating a task-level skill as a free-form plan that must be regenerated after failure, ContractSkill converts it into a **contracted artifact** with explicit preconditions, step specifications, and success conditions. This structured representation enables **deterministic verification**, **step-level fault localization**, and **minimal patch-based repair**.
 
-At a high level, the method has three stages:
+**中文。**  
+ContractSkill 关注如何让多模态网页智能体的技能更加可靠。与其把任务级技能看成失败后只能整体重写的自由文本计划，ContractSkill 会将其转化为带有**前置条件、步骤规范和成功约束**的结构化 artifact。这样的表示可以支持**确定性验证**、**步骤级故障定位**以及**最小化 patch 修复**。
 
-1. Draft a task-level skill from the current web task.
-2. Convert the draft into a contracted artifact with preconditions, step-level actions, and success constraints.
-3. Use verifier feedback to localize failures and repair the artifact with minimal patches.
+## Why ContractSkill? | 为什么需要 ContractSkill
 
-This repository contains the core implementation of that pipeline for:
+**English.**  
+Many web-agent failures are not pure reasoning failures. They often come from stale page assumptions, brittle targets, partially correct but incomplete plans, or local execution errors that do not justify full replanning. ContractSkill makes these failure modes explicit and repairable.
 
-- MiniWoB++
-- VisualWebArena
+**中文。**  
+很多网页智能体失败并不完全是“推理错误”，而是来自过时的页面假设、脆弱的目标 grounding、部分正确但不完整的计划，或者只需要局部修补的执行错误。ContractSkill 的目标，就是把这些失败形式显式化、可定位、可修复。
 
-## Highlights
+## Highlights | 亮点
 
-- ContractSkill converts draft skills into executable contracted artifacts with explicit preconditions, step specifications, postconditions, recovery rules, and termination checks.
-- The method enables deterministic verification, step-level fault localization, and minimal patch-based repair.
-- In the paper, ContractSkill improves self-generated skills on both VisualWebArena and MiniWoB across multiple multimodal models.
-- The method treats web-agent skills as explicit procedural artifacts that can be verified, repaired, and reused.
+- **Contracted skill artifacts.** Skills are represented with explicit assumptions, executable steps, and verifiable success conditions.  
+  **结构化技能 artifact。** 技能不再是松散文本，而是具有显式假设、可执行步骤和可验证完成条件的表示。
 
-## Why ContractSkill?
+- **Verifier-guided repair.** Failures can be localized to concrete steps and repaired with small patches instead of full regeneration.  
+  **Verifier 引导的修复。** 失败可以定位到具体步骤，并通过局部 patch 修复，而不是整段重写。
 
-ContractSkill is designed around a simple observation: web-agent failures are often not pure reasoning failures. They are frequently caused by:
+- **Cross-benchmark implementation.** This release contains the core ContractSkill implementation for MiniWoB++ and VisualWebArena.  
+  **跨 benchmark 实现。** 本仓库提供 MiniWoB++ 和 VisualWebArena 上的核心 ContractSkill 实现。
 
-- missing or stale page assumptions
-- partially correct but incomplete task plans
-- brittle action targets
-- local execution failures that do not require full replanning
+## Method at a Glance | 方法概览
 
-By making the artifact structure explicit, ContractSkill makes these failures easier to **localize, diagnose, and patch**.
+**English.**
 
-## Method Components
+1. Generate a task-level skill draft from the current web task.
+2. Convert the draft into a contracted artifact.
+3. Execute the artifact under verifier checks.
+4. Localize the failure and repair only the affected part when execution fails.
 
-The released code includes the main pieces of the ContractSkill pipeline:
+**中文。**
 
-- **Artifact generation**: produce task-level skills from multimodal observations
-- **Contracted representation**: attach preconditions, step-level actions, and success contracts
-- **Verification**: detect schema violations, execution failures, and contract failures
-- **Repair**: update only the failing part of an artifact through constrained patching
-- **Environment integration**: run the same high-level method across supported web-agent benchmarks
+1. 从当前网页任务生成任务级 skill draft。
+2. 将 draft 转换为 contracted artifact。
+3. 在 verifier 检查下执行 artifact。
+4. 如果失败，只定位并修补受影响的局部步骤。
 
-## Paper Summary
+## Repository Scope | 仓库范围
 
-From the paper abstract:
+**English.**  
+This is a **minimal code release** accompanying the paper. It is designed to expose the method implementation clearly, without bundling internal development history or large result artifacts.
 
-> ContractSkill converts a draft skill into a contracted executable artifact with explicit preconditions, step specifications, postconditions, recovery rules, and termination checks. This representation enables deterministic verification, step-level fault localization, and minimal patch-based repair, turning skill refinement into localized editing rather than full regeneration.
+**中文。**  
+这是一个与论文配套的**最小代码发布版**。它强调方法实现本身，而不包含内部开发历史、大量实验结果文件或中间分析产物。
 
-If you are interested in multimodal GUI agents, reusable skills, or verifier-guided agent repair, the paper is the best place to start:
+Included in this repository / 本仓库包含：
 
-- Paper page: https://arxiv.org/abs/2603.20340
-- PDF: https://arxiv.org/pdf/2603.20340
-- DOI: https://doi.org/10.48550/arXiv.2603.20340
+- core ContractSkill logic / ContractSkill 核心逻辑
+- MiniWoB++ and VisualWebArena runners / MiniWoB++ 与 VisualWebArena 运行入口
+- environment wrappers and repair utilities / 环境封装与修复工具
+- setup notes and example environment files / 环境说明与示例配置文件
 
-## Repository Scope
+Not included in this repository / 本仓库不包含：
 
-This is a **minimal code release** focused on method transparency and implementation clarity.
+- full experimental outputs / 全量实验结果
+- benchmark split files used in the paper / 论文中的 benchmark split 文件
+- raw traces and task-level result bundles / 原始 trace 与 task 级结果包
+- internal analysis or development utilities / 内部分析脚本与开发期工具
 
-Included in this repository:
-
-- core ContractSkill logic
-- benchmark environment wrappers
-- main experiment entry points
-- setup notes for supported environments
-- minimal environment-check and setup scripts
-
-Not included in this repository:
-
-- full experimental outputs
-- benchmark task splits used in our paper
-- raw traces and task-level result bundles
-- internal analysis scripts and development utilities
-
-These materials are omitted in this release because follow-up analysis is still ongoing.
-
-## Repository Layout
+## Repository Layout | 目录结构
 
 ```text
 .
 ├── env/                       # ContractSkill logic and benchmark-specific environments
-├── docs/                      # Setup notes for MiniWoB++ and VWA
+├── docs/                      # Setup notes for MiniWoB++ and VisualWebArena
 ├── scripts/                   # Minimal setup and environment-check utilities
 ├── run_miniwob_experiment.py  # MiniWoB++ runner
 ├── run_vwa_experiment.py      # VisualWebArena runner
 └── glm_client.py              # Model client wrapper
 ```
 
-## Getting Started
+## Getting Started | 快速开始
 
-The fastest entry point is to read the benchmark setup guides:
+**English.**  
+For environment setup, please start from:
 
 - `docs/MINIWOB_SETUP.md`
 - `docs/VISUALWEBARENA_SETUP.md`
 - `docs/VISUALWEBARENA_AMI_AWS.md`
 
-Example environment templates are provided as:
+Example environment files:
 
 - `.env.api.example`
 - `.env.miniwob.example`
 - `.env.vwa.example`
 - `.env.vwa.ami.example`
 
-## Release Note
+**中文。**  
+环境配置建议从以下文档开始：
 
-This repository is intended as a clean supplementary code release for the paper. It is organized around the **final method implementation**, not around development history, temporary experiment variants, or internal benchmarking artifacts.
+- `docs/MINIWOB_SETUP.md`
+- `docs/VISUALWEBARENA_SETUP.md`
+- `docs/VISUALWEBARENA_AMI_AWS.md`
 
-## Citation
+示例环境变量文件包括：
 
-If this repository or the paper is useful in your work, please cite:
+- `.env.api.example`
+- `.env.miniwob.example`
+- `.env.vwa.example`
+- `.env.vwa.ami.example`
+
+## Paper | 论文链接
+
+- arXiv page: https://arxiv.org/abs/2603.20340
+- arXiv PDF: https://arxiv.org/pdf/2603.20340
+- DOI: https://doi.org/10.48550/arXiv.2603.20340
+
+## Citation | 引用
+
+If this repository or the paper is useful in your research, please cite:
+
+如果这个仓库或论文对你的研究有帮助，欢迎引用：
 
 ```bibtex
 @article{lu2026contractskill,
@@ -153,6 +158,10 @@ If this repository or the paper is useful in your work, please cite:
 }
 ```
 
-## Paper Link
+## Note | 说明
 
-- arXiv: https://arxiv.org/abs/2603.20340
+**English.**  
+This repository is organized as a clean supplementary code release for the paper, rather than a full archive of all experimental runs.
+
+**中文。**  
+本仓库定位为论文的补充代码仓库，而不是完整实验过程与所有运行结果的归档库。
