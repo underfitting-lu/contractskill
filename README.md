@@ -74,12 +74,6 @@ Many web-agent failures are not pure reasoning failures. They often come from st
 
 ## Repository Scope | 仓库范围
 
-**English.**  
-This is a **minimal code release** accompanying the paper. It is designed to expose the method implementation clearly, without bundling internal development history or large result artifacts.
-
-**中文。**  
-这是一个与论文配套的**最小代码发布版**。它强调方法实现本身，而不包含内部开发历史、大量实验结果文件或中间分析产物。
-
 Included in this repository / 本仓库包含：
 
 - core ContractSkill logic / ContractSkill 核心逻辑
