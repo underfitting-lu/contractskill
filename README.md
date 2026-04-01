@@ -106,13 +106,6 @@ Included in this repository / 本仓库包含：
 - environment wrappers and repair utilities / 环境封装与修复工具
 - setup notes and example environment files / 环境说明与示例配置文件
 
-Not included in this repository / 本仓库不包含：
-
-- full experimental outputs / 全量实验结果
-- benchmark split files used in the paper / 论文中使用的 benchmark split 文件
-- raw traces and task-level result bundles / 原始 trace 与 task 级结果包
-- internal analysis or development utilities / 内部分析脚本与开发期工具
-
 ## Repository Layout | 目录结构
 
 ```text
