@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <i>Zijian Lu, Yiping Zuo, Yupeng Nie, Xin He, Weibei Fan, Chen Dai</i>
+  <i>Zijian Lu, Yiping Zuo, Yupeng Nie, Xin He, Weibei Fan, Lianyong Qi, Shi Jin</i>
 </p>
 
 <p align="center">
